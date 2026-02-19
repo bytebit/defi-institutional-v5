@@ -1,0 +1,4 @@
+project,chain,symbol,apy,tvlUsd,volatility_30d
+uniswap-v3,Ethereum,ETH-USDC,45,80000000,0.12
+uniswap-v3,Arbitrum,ARB-ETH,38,45000000,0.18
+curve,Ethereum,USDC-USDT,12,120000000,0.02
