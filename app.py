@@ -169,9 +169,18 @@ for sym0, sym1 in PAIR_LIST:
             Q128 = 2**128
 
             price = (sqrtPriceX96 / Q96) ** 2
-            price_adjusted = price * (10**(dec0 - dec1))
 
-            tvl_usd = bal0 * price_adjusted + bal1
+            if sym0 == "USDC":
+                bal0_usd = bal0
+                bal1_usd = bal1 / price
+            elif sym1 == "USDC":
+                bal0_usd = bal0 * price
+                bal1_usd = bal1
+            else:
+                bal0_usd = bal0 * price
+                bal1_usd = bal1
+
+            tvl_usd = bal0_usd + bal1_usd
 
             delta0 = (fee0_now - fee0_past) / Q128
             delta1 = (fee1_now - fee1_past) / Q128
@@ -182,6 +191,9 @@ for sym0, sym1 in PAIR_LIST:
             fee_usd = (total_fee_token0 * price_adjusted) + total_fee_token1
 
             if tvl_usd == 0:
+                continue
+
+            if tvl_usd < 1000:
                 continue
 
             apr = (fee_usd / tvl_usd) * (365/7) * 100
