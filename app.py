@@ -170,10 +170,14 @@ for sym0, sym1 in PAIR_LIST:
 
             price = (sqrtPriceX96 / Q96) ** 2
 
-            if sym0 == "USDC":
+            usdc_address = TOKENS["USDC"]["address"].lower()
+            token0_addr_lower = token0_addr.lower()
+            token1_addr_lower = token1_addr.lower()
+
+            if token0_addr_lower == usdc_address:
                 bal0_usd = bal0
                 bal1_usd = bal1 / price
-            elif sym1 == "USDC":
+            elif token1_addr_lower == usdc_address:
                 bal0_usd = bal0 * price
                 bal1_usd = bal1
             else:
@@ -191,9 +195,6 @@ for sym0, sym1 in PAIR_LIST:
             fee_usd = (total_fee_token0 * price_adjusted) + total_fee_token1
 
             if tvl_usd == 0:
-                continue
-
-            if tvl_usd < 1000:
                 continue
 
             apr = (fee_usd / tvl_usd) * (365/7) * 100
