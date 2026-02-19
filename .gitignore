@@ -47,3 +47,9 @@ Thumbs.db
 
 # Streamlit
 .streamlit/
+
+# Node
+node_modules/
+dist/
+build/
+coverage/
